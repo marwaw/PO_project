@@ -12,7 +12,9 @@ class Deklaracja(models.Model):
         db_table = 'deklaracja'
 
 
-class Formastudiow(models.Model):
+
+
+class FormaStudiow(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     nazwaformy = models.CharField(db_column='nazwaFormy', unique=True, max_length=255)  # Field name made lowercase.
 
@@ -73,7 +75,7 @@ class Student(models.Model):
     kierunekstudiow = models.CharField(db_column='KierunekStudiow', max_length=255)  # Field name made lowercase.
     specjalnosc = models.CharField(db_column='Specjalnosc', max_length=255, blank=True, null=True)  # Field name made lowercase.
     stopienstudiow = models.ForeignKey(Stopienstudiow, models.DO_NOTHING, db_column='StopienStudiow')  # Field name made lowercase.
-    formastudiow = models.ForeignKey(Formastudiow, models.DO_NOTHING, db_column='FormaStudiow')  # Field name made lowercase.
+    formastudiow = models.ForeignKey(FormaStudiow, models.DO_NOTHING, db_column='FormaStudiow')  # Field name made lowercase.
     rokstudiow = models.IntegerField(db_column='RokStudiow')  # Field name made lowercase.
     tematid = models.ForeignKey('Temat', models.DO_NOTHING, db_column='TematID', blank=True, null=True)  # Field name made lowercase.
 

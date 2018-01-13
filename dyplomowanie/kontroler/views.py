@@ -2,6 +2,21 @@ from django.http import Http404
 from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
+from django.views.generic import View
+from django.urls import reverse
+
+from dyplomowanie.model.models import Deklaracja
+
+class MojeView(View):
+    def post(self, request, info):
+        a = 'heeeej'
+        return HttpResponse(a)
+
+    def get(self, request):
+        a = 'heeeej'
+        reverse('moje')
+        return HttpResponse(a)
+
 
 def hello_world(request):
     a = 'heeeej'
@@ -21,3 +36,5 @@ def hours_ahead(request, offset):
     html = "<html><body>Za %s godz, będzie: %s.</body></html>" %(offset, dt)
 
     return HttpResponse(html)
+
+
