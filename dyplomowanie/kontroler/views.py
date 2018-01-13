@@ -5,8 +5,6 @@ import datetime
 from django.views.generic import View
 from django.urls import reverse
 
-from dyplomowanie.model.models import Deklaracja
-
 class MojeView(View):
     def post(self, request, info):
         a = 'heeeej'
