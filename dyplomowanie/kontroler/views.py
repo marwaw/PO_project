@@ -10,7 +10,14 @@ class Base(View):
 
 class Topics(View):
     def get(self, request):
-        return render(request, 'tematy/listy_tematow.html')
+        context = {'user': 'Jan Kowalski'}
+        return render(request, 'tematy/listy_tematow.html', context)
+
+
+class Work(View):
+    def get(self, request):
+        context = {'user': 'Jan Kowalski'}
+        return render(request, 'moja_praca.html', context)
 
 
 
