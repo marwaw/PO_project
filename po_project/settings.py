@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'po_db',
         'USER': 'admin',
         'PASSWORD': 'adminpass12',
-        'HOST': 'localhost',
+        'HOST': 'pomartyna.cbx5ewzaapbo.us-east-1.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
