@@ -10,7 +10,7 @@ class Base(View):
 
 class Topics(View):
     def get(self, request):
-        return render(request, 'listy_tematow.html')
+        return render(request, 'tematy/listy_tematow.html')
 
 
 
