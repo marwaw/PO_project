@@ -1,26 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import View
 
-from django.views.generic import View
-from django.urls import reverse
 
-class MojeView(View):
-    def post(self, request, info):
-        a = 'heeeej'
-        return HttpResponse(a)
-
+class Base(View):
     def get(self, request):
-        a = 'heeeej'
-        reverse('moje')
-        return HttpResponse(a)
+        context = {'user': 'Jan Kowalski'}
+        return render(request, 'base.html', context)
 
 
-def hello_world(request):
-    a = 'heeeej'
-    return HttpResponse(a)
+class Topics(View):
+    def get(self, request):
+        return render(request, 'listy_tematow.html')
 
-def index(request):
-    context = { 'user': 'Jan Kowalski'}
-    return render(request, 'base.html', context)
 
 

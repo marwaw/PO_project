@@ -1,12 +1,9 @@
-from django.conf.urls import url
 from django.urls import path
 
-from dyplomowanie.kontroler.views import hello_world
-from dyplomowanie.kontroler.views import MojeView
-from dyplomowanie.kontroler.views import index
+from dyplomowanie.kontroler.views import Base
+from dyplomowanie.kontroler.views import Topics
 
 urlpatterns = [
-    path('moje', MojeView.as_view(), name='moje'),
-    path('index', index),
-    path('', hello_world)
+    path('index', Base.as_view(), name = "base"),
+    path('przegladanie_list', Topics.as_view(), name = "topics")
 ]
