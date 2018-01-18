@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .model import Deklaracja
-from .model import FormaStudiow
-from .model import JezykRealizacji
-from .model import NauczycielAkademicki
-from .model import PowiadomienieOWyborzeTematu
-from .model import StopienStudiow
-from .model import Student
-from .model import Temat
-from .model import TypPracy
+from .model.Deklaracja import Deklaracja
+from .model.FormaStudiow import FormaStudiow
+from .model.JezykRealizacji import JezykRealizacji
+from .model.NauczycielAkademicki import NauczycielAkademicki
+from .model.PowiadomienieOWyborzeTematu import PowiadomienieOWyborzeTematu
+from .model.StopienStudiow import StopienStudiow
+from .model.Student import Student
+from .model.Temat import Temat
+from .model.TypPracy import TypPracy
 
 class DeklaracjaAdmin(admin.ModelAdmin):
     pass
