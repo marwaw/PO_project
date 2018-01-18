@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %} Opcje przeglądania {% endblock title %}
+
+{% block content %}
+{#      TODO#}
+{#    - radio buttons#}
+{#    - text field#}
+
+    <p> Wybierz opcje przeglądania</p>
+
+    <div class="row">
+      <div class="col-8"></div>
+
+      <div class="col-4">
+          <div class="btn-group" role="group" aria-label="...">
+              <a href={% url "topics" %} role="button" class="btn btn-secondary">Zatwierdź</a>
+              <button type="button" class="btn btn-secondary">Anuluj</button>
+          </div>
+      </div>
+    </div>
+
+{% endblock content %}
