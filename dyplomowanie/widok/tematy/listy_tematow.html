@@ -3,5 +3,26 @@
 {% block title %} Listy tematów {% endblock title %}
 
 {% block content %}
-    Tutaj listy tematow
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Temat</th>
+      <th scope="col">Promotor</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+
+    {% if tematy %}
+      <tbody>
+      {% for temat in tematy %}
+        <tr>
+        {% for elem in temat %}
+          <td>{{ elem }}</td>
+        {% endfor %}
+        </tr>
+      {% endfor %}
+      </tbody>
+    {%  endif %}
+
+</table>
 {% endblock content %}
