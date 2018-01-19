@@ -2,7 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
-from .forms import NameForm, DeclarationForm
+from dyplomowanie.model.Deklaracja import DeclarationForm
+from .forms import NameForm, DeclarationForm2
+
 
 
 class Base(View):
@@ -13,7 +15,8 @@ class Base(View):
 
 class Topics(View):
     def get(self, request):
-        context = {'user': 'Jan Kowalski'}
+        tematy = [('temat1', 'promotor1', 'wolny'), ('temat2', 'promotor1', 'wolny'), ('temat3', 'promotor2', 'zajety')]
+        context = {'user': 'Jan Kowalski', 'tematy': tematy}
         return render(request, 'tematy/listy_tematow.html', context)
 
 class Topics_Options(View):
@@ -47,7 +50,7 @@ class Declaration(View):
              'topic_ENG': 'Topic topic',
              'supervisor': 'Adamczyk Adam'}
 
-        form = DeclarationForm(student_info)
+        form = DeclarationForm()
         context = {'user': 'Jan Kowalski', 'form': form}
         return render(request, 'deklaracja/deklaracja.html', context)
 
@@ -64,7 +67,7 @@ class Declaration(View):
 
         form = DeclarationForm(request.POST)
         if form.is_valid():
-            return HttpResponse(form.cleaned_data['description'])
+            return HttpResponse(form.cleaned_data['opis'])
 
 
 
