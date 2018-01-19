@@ -9,9 +9,15 @@
 
     <p> Wybierz opcje przeglądania</p>
 
+{#    Nie wiem co w action#}
+    <form action = "tematy" method = "post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type = "submit" value="ok">
+    </form>
+
     <div class="row">
       <div class="col-8"></div>
-
       <div class="col-4">
           <div class="btn-group" role="group" aria-label="...">
               <a href={% url "topics" %} role="button" class="btn btn-secondary">Zatwierdź</a>
@@ -19,5 +25,7 @@
           </div>
       </div>
     </div>
+
+
 
 {% endblock content %}
