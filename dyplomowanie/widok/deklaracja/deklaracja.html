@@ -9,7 +9,7 @@
     <p> Deklaracja</p>
 
     {#    Nie wiem co w action#}
-    <form action = "/moja_praca/deklaracja" method = "post">
+    <form name = "form" action = "" method = "post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type = "submit" value="ok">
