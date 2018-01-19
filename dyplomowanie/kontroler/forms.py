@@ -2,7 +2,7 @@ from django import forms
 
 class NameForm(forms.Form):
     TOPIC_CHOICES = [('all', 'wszystkie'), ('free', 'tylko wolne')]
-    name = forms.CharField(label = 'Nazwisko promotora', max_length=100)
+    name = forms.CharField(label = 'Nazwisko promotora', max_length=100, required=False)
     topic_options = forms.CharField(label = 'Jakie tematy wyświetlić?',
                                     widget = forms.RadioSelect(choices = TOPIC_CHOICES))
 
