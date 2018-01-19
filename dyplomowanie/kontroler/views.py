@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -46,13 +47,26 @@ class Declaration(View):
              'topic_ENG': 'Topic topic',
              'supervisor': 'Adamczyk Adam'}
 
-        if request.method == 'POST':
-            form = DeclarationForm(request.POST)
-        else:
-            form = DeclarationForm(student_info)
-
+        form = DeclarationForm(student_info)
         context = {'user': 'Jan Kowalski', 'form': form}
         return render(request, 'deklaracja/deklaracja.html', context)
+
+    def post(self, request):
+        student_info = \
+            {'name': 'Jan',
+             'surname': 'Kowalski',
+             'subject': 'Informatyka',
+             'speciality': '-',
+             'studies_more': 'I stopień, studia dzienne, III rok',
+             'topic_PL': 'Temat temat',
+             'topic_ENG': 'Topic topic',
+             'supervisor': 'Adamczyk Adam'}
+
+        form = DeclarationForm(request.POST)
+        if form.is_valid():
+            return HttpResponse(form.cleaned_data['description'])
+
+
 
 
 
