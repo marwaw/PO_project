@@ -1,4 +1,8 @@
 from django import forms
+from django.forms import ModelForm
+
+from dyplomowanie.model import Deklaracja
+
 
 class NameForm(forms.Form):
     TOPIC_CHOICES = [('all', 'wszystkie'), ('free', 'tylko wolne')]
@@ -6,7 +10,7 @@ class NameForm(forms.Form):
     topic_options = forms.CharField(label = 'Jakie tematy wyświetlić?',
                                     widget = forms.RadioSelect(choices = TOPIC_CHOICES))
 
-class DeclarationForm(forms.Form):
+class DeclarationForm2(forms.Form):
     name = forms.CharField(label='Imię')
     surname = forms.CharField(label='Nazwisko')
     subject = forms.CharField(label='Kierunek')
