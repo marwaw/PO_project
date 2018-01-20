@@ -9,11 +9,14 @@ class Student(models.Model):
     nrindeksu = models.CharField(db_column='NrIndeksu', unique=True, max_length=9)
     kierunekstudiow = models.CharField(db_column='KierunekStudiow', max_length=255)
     specjalnosc = models.CharField(db_column='Specjalnosc', max_length=255, blank=True, null=True)
-    stopienstudiow = models.ForeignKey('StopienStudiow', models.DO_NOTHING, db_column='StopienStudiow')
-    formastudiow = models.ForeignKey('FormaStudiow', models.DO_NOTHING, db_column='FormaStudiow')
     rokstudiow = models.IntegerField(db_column='RokStudiow')
+    formastudiow = models.ForeignKey('FormaStudiow', models.DO_NOTHING, db_column='FormaStudiow')
+    stopienstudiow = models.ForeignKey('StopienStudiow', models.DO_NOTHING, db_column='StopienStudiow')
     tematid = models.ForeignKey('Temat', models.DO_NOTHING, db_column='TematID', blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'student'
+
+    def __str__(self):
+        return f'{self.imie} {self.nazwisko}, {self.nrindeksu}'

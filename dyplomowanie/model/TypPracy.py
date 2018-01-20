@@ -7,3 +7,6 @@ class TypPracy(models.Model):
     class Meta:
         managed = False
         db_table = 'typpracy'
+
+    def __str__(self):
+        return self.nazwatypu

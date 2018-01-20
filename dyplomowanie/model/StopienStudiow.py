@@ -7,3 +7,6 @@ class StopienStudiow(models.Model):
     class Meta:
         managed = False
         db_table = 'stopienstudiow'
+
+    def __str__(self):
+        return self.stopien

@@ -16,3 +16,6 @@ class Temat(models.Model):
     class Meta:
         managed = False
         db_table = 'temat'
+
+    def __str__(self):
+        return self.trescpl

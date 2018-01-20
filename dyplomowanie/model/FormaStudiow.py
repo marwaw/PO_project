@@ -7,3 +7,6 @@ class FormaStudiow(models.Model):
     class Meta:
         managed = False
         db_table = 'formastudiow'
+
+    def __str__(self):
+        return self.nazwaformy

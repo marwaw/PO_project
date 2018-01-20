@@ -7,3 +7,6 @@ class JezykRealizacji(models.Model):
     class Meta:
         managed = False
         db_table = 'jezykrealizacji'
+
+    def __str__(self):
+        return self.nazwajezyka
