@@ -1,10 +1,10 @@
 from django.urls import path
 
 from dyplomowanie.kontroler.views import Base
-from dyplomowanie.kontroler.views import Topics
-from dyplomowanie.kontroler.views import Topics_Options
+from dyplomowanie.kontroler.tematy import Topics
+from dyplomowanie.kontroler.tematy import Topics_Options
 from dyplomowanie.kontroler.views import Work
-from dyplomowanie.kontroler.views import Declaration
+from dyplomowanie.kontroler.deklaracja import Declaration
 
 urlpatterns = [
     path('index', Base.as_view(), name = "base"),
