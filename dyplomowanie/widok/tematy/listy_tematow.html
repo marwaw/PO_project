@@ -23,7 +23,7 @@
           <td>{{ temat.tresc_pl }}</td>
           <td>{{ temat.promotor }}</td>
           <td>{{ temat.status }}</td>
-        <td>{%  if temat.status == 'wolny' %}<a href="" role="button" class="btn btn-success">Wybierz</a>{% endif %}</td>
+        <td>{%  if temat.status == 'wolny' and not user.temat %}<a href="" role="button" class="btn btn-success">Wybierz</a>{% endif %}</td>
         </tr>
       {% endfor %}
       </tbody>

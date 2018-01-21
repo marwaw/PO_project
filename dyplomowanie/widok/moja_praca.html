@@ -18,7 +18,11 @@
       <div class="col-4">
           <div class="btn-group" role="group" aria-label="...">
               <a href={% url "topics_options" %} role="button" class="btn btn-secondary">Przeglądaj listy tematów</a>
-              {% if temat %}<a href={% url "declaration" %} role="button" class="btn btn-secondary">Złóż deklarację</a>{% endif %}
+              {% if temat and not user.deklaracja %}
+                  <a href={% url "declaration" %} role="button" class="btn btn-secondary">Złóż deklarację {{ user.deklaracja }}</a>
+              {% else %}
+                  <a href={% url "declaration" %} role="button" class="btn btn-secondary" style="pointer-events: none;">Złóż deklarację {{ user.deklaracja }}</a>
+              {% endif %}
           </div>
       </div>
     </div>

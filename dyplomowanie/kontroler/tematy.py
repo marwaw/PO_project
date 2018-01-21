@@ -2,12 +2,16 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
+from dyplomowanie.DTO.Student import StudentDTO
+from dyplomowanie.model.Student import Student
 from .forms import OptionsForm
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
 
 class Topics(View):
     def post(self, request):
+        student = Student.objects.get(id=2)
+
         form = OptionsForm(request.POST)
         if not form.is_valid():
             return redirect("topics_options")
@@ -20,12 +24,16 @@ class Topics(View):
             status = 'wolny' if temat.czywolny else 'zajęty'
             tematy.append(TematDTO(temat.id, temat.trescpl, str(temat.nauczycielakademickiid), status))
 
-        context = {'user': 'Jan Kowalski', 'tematy': tematy}
+        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
+        context = {'user': student, 'tematy': tematy}
         return render(request, 'tematy/listy_tematow.html', context)
 
 class Topics_Options(View):
     def get(self, request):
+        student = Student.objects.get(id=2)
+
         form = OptionsForm()
-        context = {'user': 'Jan Kowalski', 'form' : form}
+        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
+        context = {'user': student, 'form' : form}
 
         return render(request, 'tematy/opcje_przegladania.html', context)

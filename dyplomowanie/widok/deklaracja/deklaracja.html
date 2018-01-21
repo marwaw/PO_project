@@ -13,4 +13,11 @@
         <input type = "submit" value="ok" class="btn btn-success confirm">
         <a href={% url "work" %} role="button" class="btn btn-danger">Anuluj</a>
     </form>
+
+    {% if success %}
+        <script>
+            alert("Twoja deklaracja została złożona");
+
+        </script>
+    {% endif %}
 {% endblock content %}
