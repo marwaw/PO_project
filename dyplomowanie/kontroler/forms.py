@@ -24,3 +24,11 @@ class DeclarationForm2(forms.Form):
     language = forms.ChoiceField(label='Język', choices = jezyki, initial='polski')
     goal = forms.CharField(label = 'Cel i zakres pracy dyplomowej', widget = forms.Textarea, max_length= 2000)
     description = forms.CharField(label = 'Opis pracy', widget = forms.Textarea, max_length= 2000)
+
+class TopicForm(forms.Form):
+    topic_id = forms.CharField()
+    student_id = forms.CharField()
+
+    TOPIC_CHOICES = [('all', 'wszystkie'), ('free', 'tylko wolne')]
+    name = forms.CharField( max_length=100, required=False)
+    topic_options = forms.CharField(widget=forms.RadioSelect(choices=TOPIC_CHOICES), initial='all', required=False)

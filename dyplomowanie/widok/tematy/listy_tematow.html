@@ -2,7 +2,20 @@
 
 {% block title %} Listy tematów {% endblock title %}
 
+
+
 {% block content %}
+    <script language="javascript" type="text/javascript">
+        function message_window(message){
+            alert(message);
+        }
+
+        function confirm_choice(temat, event){
+            if (!confirm("Czy na pewno chcesz wybrać temat: " + temat +"?")){
+               event.preventDefault();
+            }
+        }
+    </script>
      <a href={% url "topics_options" %} role="button" class="btn btn-secondary">Zmień opcje wyszukiwania</a>
 
 
@@ -23,7 +36,16 @@
           <td>{{ temat.tresc_pl }}</td>
           <td>{{ temat.promotor }}</td>
           <td>{{ temat.status }}</td>
-        <td>{%  if temat.status == 'wolny' and not user.temat %}<a href="" role="button" class="btn btn-success">Wybierz</a>{% endif %}</td>
+            <td>
+                {%  if temat.status == 'wolny' and not user.temat %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="topic_id" value="{{ temat.id }}" hidden>
+                        <input type="text" name="student_id" value="{{ user.id }}" hidden>
+                        <input type="submit" class="btn btn-success" value="Wybierz" onclick="confirm_choice('{{ temat.tresc_pl }}',event)">
+                    </form>
+                {% endif %}
+            </td>
         </tr>
       {% endfor %}
       </tbody>
@@ -36,8 +58,14 @@
 
       <div class="col-4">
           <div class="btn-group" role="group" aria-label="...">
-              <a href={% url "work" %} role="button" class="btn btn-danger">Anuluj</a>
+              <a href ="{% url "work" %}" role="button" class="btn btn-danger" onclick="message_window('Temat nie został wybrany')">Anuluj</a>
             </div>
         </div>
     </div>
+
+     {% if success %}
+        <script>
+             alert("Temat został wybrany!");
+        </script>
+    {% endif %}
 {% endblock content %}

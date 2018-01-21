@@ -3,6 +3,12 @@
 {% block title %} Formularz deklaracji {% endblock title %}
 
 {% block content %}
+    <script language="javascript" type="text/javascript">
+        function message_window(message){
+            alert(message);
+{#            window.location.replace({% url "work" %});#}
+        }
+    </script>
 
     <p> Deklaracja</p>
 
@@ -10,14 +16,15 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        <input type = "submit" value="ok" class="btn btn-success confirm">
-        <a href={% url "work" %} role="button" class="btn btn-danger">Anuluj</a>
+        <input type = "submit" value="ok" class="btn btn-success confirm"/>
+        <a href ="{% url "work" %}" role="button" class="btn btn-danger" onclick="message_window('Deklaracja nie została złożona')">Anuluj</a>
     </form>
 
     {% if success %}
         <script>
-            alert("Twoja deklaracja została złożona");
-
+            message_window("Twoja deklaracja została złożona");
         </script>
     {% endif %}
+
+
 {% endblock content %}

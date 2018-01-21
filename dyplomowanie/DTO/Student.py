@@ -1,6 +1,6 @@
 class StudentDTO(object):
 
-    def __init__(self, id, imie, nazwisko, nr_indeksu, temat, deklaracja=0):
+    def __init__(self, id, imie, nazwisko, nr_indeksu, temat, deklaracja=False):
         self.id = id
         self.imie = imie
         self.nazwisko = nazwisko
