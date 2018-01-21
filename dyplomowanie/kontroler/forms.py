@@ -16,7 +16,7 @@ class DeclarationForm2(forms.Form):
     name = forms.CharField(label='Imię')
     surname = forms.CharField(label='Nazwisko')
     subject = forms.CharField(label='Kierunek')
-    speciality = forms.CharField(label='Specjalność')
+    speciality = forms.CharField(label='Specjalność', required=False)
     studies_more = forms.CharField(label='Stopień, forma i rok studiów')
     topic_PL = forms.CharField(label='Temat PL')
     topic_ENG = forms.CharField(label='Temat ENG')

@@ -4,7 +4,13 @@
 
 {% block content %}
 
-    <p> Nie wybrano jeszcze tematu</p>
+    {% if temat %}
+        <p>Temat pracy dyplomowej w języku polskim: {{temat.tresc_pl}}</p>
+        <p>Opiekun pracy dyplomowej: {{ temat.promotor }}</p>
+
+    {% else %}
+        <p> Nie wybrano jeszcze tematu</p>
+    {% endif %}
 
     <div class="row">
       <div class="col-8"></div>
@@ -12,7 +18,7 @@
       <div class="col-4">
           <div class="btn-group" role="group" aria-label="...">
               <a href={% url "topics_options" %} role="button" class="btn btn-secondary">Przeglądaj listy tematów</a>
-              <a href={% url "declaration" %} role="button" class="btn btn-secondary">Złóż deklarację</a>
+              {% if temat %}<a href={% url "declaration" %} role="button" class="btn btn-secondary">Złóż deklarację</a>{% endif %}
           </div>
       </div>
     </div>
