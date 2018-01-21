@@ -8,7 +8,7 @@ class OptionsForm(forms.Form):
     TOPIC_CHOICES = [('all', 'wszystkie'), ('free', 'tylko wolne')]
     name = forms.CharField(label = 'Nazwisko promotora', max_length=100, required=False)
     topic_options = forms.CharField(label = 'Jakie tematy wyświetlić?',
-                                    widget = forms.RadioSelect(choices = TOPIC_CHOICES), initial='', required=False)
+                                    widget = forms.RadioSelect(choices = TOPIC_CHOICES), initial='all', required=False)
 
 class DeclarationForm2(forms.Form):
     jezyki = [(jezyk.id, jezyk.nazwajezyka) for jezyk in JezykRealizacji.objects.all()]

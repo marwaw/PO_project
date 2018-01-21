@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 
 from .forms import OptionsForm
@@ -10,8 +10,7 @@ class Topics(View):
     def post(self, request):
         form = OptionsForm(request.POST)
         if not form.is_valid():
-            return HttpResponse('Nie działam :(')
-            # return redirect("topics_options")
+            return redirect("topics_options")
 
         filters = {'nauczycielakademickiid__nazwisko__contains': form.cleaned_data['name']}
         if form.cleaned_data['topic_options'] == 'free':

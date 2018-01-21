@@ -3,12 +3,16 @@
 {% block title %} Listy tematów {% endblock title %}
 
 {% block content %}
+     <a href={% url "topics_options" %} role="button" class="btn btn-secondary">Zmień opcje wyszukiwania</a>
+
+
     <table class="table table-striped">
   <thead>
     <tr>
       <th scope="col">Temat</th>
       <th scope="col">Promotor</th>
       <th scope="col">Status</th>
+        <th scope="col"></th>
     </tr>
   </thead>
 
@@ -16,13 +20,24 @@
       <tbody>
       {% for temat in tematy %}
         <tr>
-        {% for elem in temat %}
-          <td>{{ elem }}</td>
-        {% endfor %}
+          <td>{{ temat.tresc_pl }}</td>
+          <td>{{ temat.promotor }}</td>
+          <td>{{ temat.status }}</td>
+        <td>{%  if temat.status == 'wolny' %}<a href="" role="button" class="btn btn-success">Wybierz</a>{% endif %}</td>
         </tr>
       {% endfor %}
       </tbody>
     {%  endif %}
 
 </table>
+
+    <div class="row">
+      <div class="col-8"></div>
+
+      <div class="col-4">
+          <div class="btn-group" role="group" aria-label="...">
+              <a href={% url "work" %} role="button" class="btn btn-danger">Anuluj</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -17,7 +17,7 @@ class Declaration(View):
              'topic_ENG': 'Topic topic',
              'supervisor': 'Adamczyk Adam'}
 
-        form = DeclarationForm2()
+        form = DeclarationForm2(student_info)
         context = {'user': 'Jan Kowalski', 'form': form}
         return render(request, 'deklaracja/deklaracja.html', context)
 
