@@ -27,4 +27,10 @@
       </div>
     </div>
 
+    {% if success %}
+        <script>
+            message_window("Twoja deklaracja została złożona");
+        </script>
+    {% endif %}
+
 {% endblock content %}

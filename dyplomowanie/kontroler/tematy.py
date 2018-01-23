@@ -3,13 +3,34 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from dyplomowanie.DTO.Student import StudentDTO
+from dyplomowanie.model.PowiadomienieOWyborzeTematu import PowiadomienieOWyborzeTematu
 from dyplomowanie.model.Student import Student
 from .forms import OptionsForm, TopicForm
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
 
 class Topics(View):
+    """
+    Kontroler odpowiadający za widok listy tematów
+    Template: widok/tematy/listy_tematow.html
+    """
+
     def post(self, request):
+        """
+        1) Użytkownik wybrał opcje przeglądania tematów (wówczas temat_wybrany = False),
+            zostają wybrane tematy z bazy danych zgodnie z preferencjami użytkownika
+
+        2) Użytkownik wybrał temat, (temat_wybrany = True),
+            temat zostaje przypisany użytkownikowi
+
+        context:
+            'user': student - obiekt DTO przechowujący najważniejsze dane o studencie
+            'tematy': tematy - lista obiektów DTO opisujących tematy z bazy danych
+                przefiltrowanych zgodnie z preferencjami użytkownika
+            'success': success - informacja o tym, czy powiodło się przypisanie użytkownikowi tematu
+        :param request:
+        :return:
+        """
         student = Student.objects.get(id=1)
         success = False
         temat_wybrany = True
@@ -22,8 +43,10 @@ class Topics(View):
                 return redirect("topics_options")
 
         if temat_wybrany:
-            student.tematid = Temat.objects.get(id=form.cleaned_data['topic_id'])
-            student.save()
+            temat = Temat.objects.get(id=form.cleaned_data['topic_id'])
+            self.set_topic_for_student(student, temat)
+            self.make_topic_taken(temat)
+            self.make_notification()
             success = True
 
         filters = {'nauczycielakademickiid__nazwisko__contains': form.cleaned_data['name']}
@@ -38,8 +61,31 @@ class Topics(View):
         context = {'user': student, 'tematy': tematy, 'success': success}
         return render(request, 'tematy/listy_tematow.html', context)
 
+    def set_topic_for_student(self, student, temat):
+        student.tematid = temat
+        student.save()
+
+    def make_topic_taken(self, temat):
+        temat.czywolny = 0
+        temat.save()
+
+    def make_notification(self, student, temat):
+        notification = PowiadomienieOWyborzeTematu(studentid=student, tematid=temat, nauczycielakademickiid=temat.nauczycielakademickiid)
+        notification.save()
+
 class Topics_Options(View):
+    """
+    Kontroler odpowiadający za widok formularza z opcjami przeglądania tematów
+    Template: widok/tematy/opcje_przegladania.html
+    """
     def get(self, request):
+        """
+        context:
+            'user': student - obiekt DTO przechowujący najważniejsze dane o studencie
+            'form': form - wygenerowany formularz (kontroler/forms.py OptionForm)
+        :param request:
+        :return:
+        """
         student = Student.objects.get(id=1)
 
         form = OptionsForm()

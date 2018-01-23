@@ -1,6 +1,9 @@
 from django.db import models
 
 class NauczycielAkademicki(models.Model):
+    """
+    Model odpowiadający tabeli nauczycielakademicki w bazie danych
+    """
     id = models.AutoField(db_column='ID', primary_key=True)
     login = models.CharField(db_column='Login', unique=True, max_length=30)
     haslo = models.CharField(db_column='Haslo', max_length=255)

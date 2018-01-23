@@ -12,8 +12,12 @@ from dyplomowanie.DTO.tematy import TematDTO
 
 
 class Base(View):
+    """
+    Kontroler bazowy.
+    Template: widok/base.html
+    """
     def get(self, request):
-        student = Student.objects.get(id=2)
+        student = Student.objects.get(id=1)
         student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
 
         context = {'user': student}
@@ -21,8 +25,21 @@ class Base(View):
 
 
 class Work(View):
+    """
+    Kontroler zakładki "Moja praca"
+    Template: widok/moja_praca.html
+    """
     def get(self, request):
-        student = Student.objects.get(id=2)
+        """
+        context:
+            'user': student - obiekt DTO przechowujący najważniejsze dane o studencie
+            'temat': temat -
+                1) jeśli student ma wybrany temat - obiekt DTO opisujący ten temat
+                2) w przeciwnym przypadku None
+        :param request:
+        :return:
+        """
+        student = Student.objects.get(id=1)
 
         temat = None
         if student.tematid:
