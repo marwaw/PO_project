@@ -5,7 +5,6 @@ class StopienStudiow(models.Model):
     stopien = models.CharField(unique=True, max_length=255)
 
     class Meta:
-        managed = False
         db_table = 'stopienstudiow'
 
     def __str__(self):

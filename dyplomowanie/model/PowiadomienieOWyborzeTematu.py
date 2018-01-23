@@ -8,5 +8,4 @@ class PowiadomienieOWyborzeTematu(models.Model):
     nauczycielakademickiid = models.ForeignKey('NauczycielAkademicki', models.DO_NOTHING, db_column='NauczycielAkademickiID')
 
     class Meta:
-        managed = False
         db_table = 'powiadomienieowyborzetematu'

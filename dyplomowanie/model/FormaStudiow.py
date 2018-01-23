@@ -5,7 +5,6 @@ class FormaStudiow(models.Model):
     nazwaformy = models.CharField(db_column='nazwaFormy', unique=True, max_length=255)
 
     class Meta:
-        managed = False
         db_table = 'formastudiow'
 
     def __str__(self):

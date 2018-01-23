@@ -52,14 +52,18 @@ class Topics(View):
         filters = {'nauczycielakademickiid__nazwisko__contains': form.cleaned_data['name']}
         if form.cleaned_data['topic_options'] == 'free':
             filters['czywolny'] = 1
-        tematy = []
-        for temat in Temat.objects.all().filter(**filters):
-            status = 'wolny' if temat.czywolny else 'zajęty'
-            tematy.append(TematDTO(temat.id, temat.trescpl, str(temat.nauczycielakademickiid), status))
+        tematy = self.create_DTO_list(Temat.objects.all().filter(**filters))
 
         student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
         context = {'user': student, 'tematy': tematy, 'success': success}
         return render(request, 'tematy/listy_tematow.html', context)
+
+    def create_DTO_list(self, tematy):
+        result = []
+        for temat in tematy:
+            status = 'wolny' if temat.czywolny else 'zajęty'
+            result.append(TematDTO(temat.id, temat.trescpl, str(temat.nauczycielakademickiid), status))
+        return result
 
     def set_topic_for_student(self, student, temat):
         student.tematid = temat

@@ -14,7 +14,6 @@ class Temat(models.Model):
     czyplagiat = models.IntegerField(db_column='CzyPlagiat', blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'temat'
 
     def __str__(self):

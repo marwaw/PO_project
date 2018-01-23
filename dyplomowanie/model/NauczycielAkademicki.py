@@ -12,7 +12,6 @@ class NauczycielAkademicki(models.Model):
     sumagodzin = models.IntegerField(db_column='SumaGodzin')
 
     class Meta:
-        managed = False
         db_table = 'nauczycielakademicki'
 
     def __str__(self):

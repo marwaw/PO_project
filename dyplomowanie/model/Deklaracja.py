@@ -10,7 +10,6 @@ class Deklaracja(models.Model):
     opis = models.CharField(db_column='Opis', max_length=2000, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'deklaracja'
 
 class DeclarationForm(ModelForm):

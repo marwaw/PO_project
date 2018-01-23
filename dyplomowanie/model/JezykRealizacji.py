@@ -5,7 +5,6 @@ class JezykRealizacji(models.Model):
     nazwajezyka = models.CharField(db_column='nazwaJezyka', unique=True, max_length=255)
 
     class Meta:
-        managed = False
         db_table = 'jezykrealizacji'
 
     def __str__(self):
