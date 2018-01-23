@@ -15,6 +15,7 @@ class Student(models.Model):
     tematid = models.ForeignKey('Temat', models.DO_NOTHING, db_column='TematID', blank=True, null=True)
 
     class Meta:
+        managed = True
         db_table = 'student'
 
     def __str__(self):
