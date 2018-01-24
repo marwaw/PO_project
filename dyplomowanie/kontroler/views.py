@@ -9,7 +9,7 @@ from dyplomowanie.model.Student import Student
 from .forms import OptionsForm, DeclarationForm2
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
-
+STUD_ID = 2
 
 class Base(View):
     """
@@ -17,7 +17,7 @@ class Base(View):
     Template: widok/base.html
     """
     def get(self, request):
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
         student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
 
         context = {'user': student}
@@ -39,7 +39,7 @@ class Work(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
 
         temat = None
         if student.tematid:

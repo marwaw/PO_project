@@ -9,6 +9,8 @@ from .forms import OptionsForm, TopicForm
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
 
+STUD_ID = 2
+
 class Topics(View):
     """
     Kontroler odpowiadający za widok listy tematów
@@ -31,7 +33,7 @@ class Topics(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
         success = False
         temat_wybrany = True
 
@@ -46,7 +48,7 @@ class Topics(View):
             temat = Temat.objects.get(id=form.cleaned_data['topic_id'])
             self.set_topic_for_student(student, temat)
             self.make_topic_taken(temat)
-            self.make_notification()
+            self.make_notification(student, temat)
             success = True
 
         filters = {'nauczycielakademickiid__nazwisko__contains': form.cleaned_data['name']}
@@ -74,7 +76,10 @@ class Topics(View):
         temat.save()
 
     def make_notification(self, student, temat):
-        notification = PowiadomienieOWyborzeTematu(studentid=student, tematid=temat, nauczycielakademickiid=temat.nauczycielakademickiid)
+        notification = PowiadomienieOWyborzeTematu(
+            studentid=student,
+            tematid=temat,
+            nauczycielakademickiid=temat.nauczycielakademickiid)
         notification.save()
 
 class Topics_Options(View):
@@ -90,7 +95,7 @@ class Topics_Options(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
 
         form = OptionsForm()
         student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)

@@ -6,6 +6,8 @@ from dyplomowanie.model.Deklaracja import Deklaracja
 from dyplomowanie.model.Student import Student
 from .forms import DeclarationForm2
 
+STUD_ID = 2
+
 class Declaration(View):
     """
     Kontroler odpowiadający za widok formularza deklaracji
@@ -20,7 +22,7 @@ class Declaration(View):
         :param request: żadanie http GET (???)
         :return: Powoduje wyrenderowanie się widoku deklaracja.html, wraz z danymi z context
         """
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
 
         student_info = {
             'name': student.imie,
@@ -48,7 +50,7 @@ class Declaration(View):
         :param request: żadanie HTTP POST
         :return: Powoduje wyrenderowanie się widoku deklaracja.html, wraz z danymi z context
         """
-        student = Student.objects.get(id=1)
+        student = Student.objects.get(id=STUD_ID)
         form = DeclarationForm2(request.POST)
         success = False
 
