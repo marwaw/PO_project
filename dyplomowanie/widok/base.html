@@ -21,11 +21,11 @@
                   <div class="btn-group" role="group" aria-label="...">
                       <a href={% url "base" %} role="button" class="btn btn-secondary">Strona główna</a>
                       <a href={% url "base" %} role="button" class="btn btn-secondary">Moje konto</a>
-                      <a href={% url "work" %} role="button" class="btn btn-secondary">Moja praca</a>
-                      <a href={% url "topics_options" %} role="button" class="btn btn-secondary">Przeglądanie list</a>
+                      <a href={% url "work" %} role="button" class="btn btn-secondary" id="praca">Moja praca</a>
+                      <a href={% url "topics_options" %} role="button" class="btn btn-secondary" id="przegladaj">Przeglądanie list</a>
                   </div></div>
 
-              <div class="col-4">
+              <div class="col-4" id="user-div">
                   Zalogowany jako {{ user.imie }} {{ user.nazwisko }}
                   <div class="btn-group" role="group" aria-label="...">
                       <button type="button" class="btn btn-secondary">Wyloguj</button>

@@ -9,7 +9,7 @@
     <form action = "{% url "topics" %}" method = "post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type = "submit" value="Wybierz" class="btn btn-success">
+        <input type = "submit" id="szukaj" value="Wybierz" class="btn btn-success">
         <button type="button" class="btn btn-danger">Anuluj</button>
     </form>
 
