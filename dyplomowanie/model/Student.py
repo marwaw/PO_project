@@ -20,3 +20,7 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.imie} {self.nazwisko}, {self.nrindeksu}'
+
+    def set_topic(self, temat):
+        self.tematid = temat
+        self.save()

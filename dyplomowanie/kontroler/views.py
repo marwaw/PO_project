@@ -1,26 +1,27 @@
-from django.http import Http404
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views import View
 
 from dyplomowanie.DTO.Student import StudentDTO
-from dyplomowanie.model.Deklaracja import DeclarationForm
 from dyplomowanie.model.Student import Student
-from .forms import OptionsForm, DeclarationForm2
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
-STUD_ID = 2
+
+STUD_ID = 1
+
 
 class Base(View):
     """
     Kontroler bazowy.
     Template: widok/base.html
     """
-    def get(self, request):
-        student = Student.objects.get(id=STUD_ID)
-        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
+    student = Student.objects.get(id=STUD_ID)
 
-        context = {'user': student}
+    def get(self, request):
+        student_dto = StudentDTO(self.student.id, self.student.imie,
+                                 self.student.nazwisko, self.student.nrindeksu,
+                                 self.student.tematid)
+
+        context = {'user': student_dto}
         return render(request, 'base.html', context)
 
 
@@ -29,6 +30,9 @@ class Work(View):
     Kontroler zakładki "Moja praca"
     Template: widok/moja_praca.html
     """
+
+    student = Student.objects.get(id=STUD_ID)
+
     def get(self, request):
         """
         context:
@@ -39,20 +43,14 @@ class Work(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=STUD_ID)
 
         temat = None
-        if student.tematid:
-            temat = Temat.objects.get(id = student.tematid.id)
+        if self.student.tematid:
+            temat = Temat.objects.get(id=self.student.tematid.id)
             temat = TematDTO(temat.id, temat.trescpl, str(temat.nauczycielakademickiid))
 
-        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid, student.deklaracja_set.count())
-        context = {'user': student, 'temat': temat}
+        student_dto = StudentDTO(self.student.id, self.student.imie,
+                                 self.student.nazwisko, self.student.nrindeksu,
+                                 self.student.tematid, self.student.deklaracja_set.count())
+        context = {'user': student_dto, 'temat': temat}
         return render(request, 'moja_praca.html', context)
-
-
-
-
-
-
-

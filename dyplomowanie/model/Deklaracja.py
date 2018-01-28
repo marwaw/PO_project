@@ -1,6 +1,4 @@
 from django.db import models
-from django.forms import ModelForm
-
 
 class Deklaracja(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
@@ -12,8 +10,3 @@ class Deklaracja(models.Model):
     class Meta:
         managed = True
         db_table = 'deklaracja'
-
-class DeclarationForm(ModelForm):
-    class Meta:
-        model = Deklaracja
-        fields = ['celizakres', 'opis']

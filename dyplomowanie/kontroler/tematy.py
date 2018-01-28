@@ -9,13 +9,14 @@ from .forms import OptionsForm, TopicForm
 from dyplomowanie.model.Temat import Temat
 from dyplomowanie.DTO.tematy import TematDTO
 
-STUD_ID = 2
+STUD_ID = 1
 
 class Topics(View):
     """
     Kontroler odpowiadający za widok listy tematów
     Template: widok/tematy/listy_tematow.html
     """
+    student = Student.objects.get(id=STUD_ID)
 
     def post(self, request):
         """
@@ -33,7 +34,6 @@ class Topics(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=STUD_ID)
         success = False
         temat_wybrany = True
 
@@ -46,9 +46,9 @@ class Topics(View):
 
         if temat_wybrany:
             temat = Temat.objects.get(id=form.cleaned_data['topic_id'])
-            self.set_topic_for_student(student, temat)
-            self.make_topic_taken(temat)
-            self.make_notification(student, temat)
+            self.student.set_topic(temat)
+            temat.make_taken()
+            self.make_notification(temat)
             success = True
 
         filters = {'nauczycielakademickiid__nazwisko__contains': form.cleaned_data['name']}
@@ -56,8 +56,10 @@ class Topics(View):
             filters['czywolny'] = 1
         tematy = self.create_DTO_list(Temat.objects.all().filter(**filters))
 
-        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
-        context = {'user': student, 'tematy': tematy, 'success': success}
+        student_dto = StudentDTO(self.student.id, self.student.imie,
+                                 self.student.nazwisko, self.student.nrindeksu,
+                                 self.student.tematid)
+        context = {'user': student_dto, 'tematy': tematy, 'success': success}
         return render(request, 'tematy/listy_tematow.html', context)
 
     def create_DTO_list(self, tematy):
@@ -67,17 +69,9 @@ class Topics(View):
             result.append(TematDTO(temat.id, temat.trescpl, str(temat.nauczycielakademickiid), status))
         return result
 
-    def set_topic_for_student(self, student, temat):
-        student.tematid = temat
-        student.save()
-
-    def make_topic_taken(self, temat):
-        temat.czywolny = 0
-        temat.save()
-
-    def make_notification(self, student, temat):
+    def make_notification(self, temat):
         notification = PowiadomienieOWyborzeTematu(
-            studentid=student,
+            studentid=self.student,
             tematid=temat,
             nauczycielakademickiid=temat.nauczycielakademickiid)
         notification.save()
@@ -87,6 +81,8 @@ class Topics_Options(View):
     Kontroler odpowiadający za widok formularza z opcjami przeglądania tematów
     Template: widok/tematy/opcje_przegladania.html
     """
+    student = Student.objects.get(id=STUD_ID)
+
     def get(self, request):
         """
         context:
@@ -95,10 +91,11 @@ class Topics_Options(View):
         :param request:
         :return:
         """
-        student = Student.objects.get(id=STUD_ID)
 
         form = OptionsForm()
-        student = StudentDTO(student.id, student.imie, student.nazwisko, student.nrindeksu, student.tematid)
-        context = {'user': student, 'form' : form}
+        student_dto = StudentDTO(self.student.id, self.student.imie,
+                                 self.student.nazwisko, self.student.nrindeksu,
+                                 self.student.tematid)
+        context = {'user': student_dto, 'form': form}
 
         return render(request, 'tematy/opcje_przegladania.html', context)

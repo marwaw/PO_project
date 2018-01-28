@@ -19,8 +19,8 @@ class OptionsForm(forms.Form):
                                     widget=forms.RadioSelect(choices=TOPIC_CHOICES), initial='all', required=False)
 
 
-class DeclarationForm2(forms.Form):
-    jezyki = [(jezyk.id, jezyk.nazwajezyka) for jezyk in JezykRealizacji.objects.all()]
+class DeclarationForm(forms.Form):
+    jezyki = [(1,'polski'), (2, 'angielski')]
 
     name = forms.CharField(label='Imię')
     surname = forms.CharField(label='Nazwisko')

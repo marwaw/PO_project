@@ -5,3 +5,9 @@ class TematDTO(object):
         self.tresc_pl = tresc_pl
         self.promotor = promotor
         self.status = status
+
+    def __eq__(self, other):
+        return (self.id == other.id
+                and self.tresc_pl == other.tresc_pl
+                and self.promotor == other.promotor
+                and self.status == other.status)

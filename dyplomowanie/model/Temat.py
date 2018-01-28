@@ -19,3 +19,7 @@ class Temat(models.Model):
 
     def __str__(self):
         return self.trescpl
+
+    def make_taken(self):
+        self.czywolny = 0
+        self.save()

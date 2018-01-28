@@ -1,39 +1,31 @@
-# from django.test import TestCase
-#
-# from dyplomowanie.DTO.tematy import TematDTO
-# from dyplomowanie.kontroler.tematy import Topics
-# from dyplomowanie.model.Temat import Temat
-#
-#
-# class Test1(TestCase):
-#
-#     def test_create_DTO_list_empty(self):
-#
-#         controler = Topics()
-#         _input = []
-#         expected = []
-#
-#         result = controler.create_DTO_list(_input)
-#
-#         self.assertEqual(result, expected)
-#
-#
-#     def test_create_DTO_list_one_object(self):
-#         controler = Topics()
-#
-#         t = Temat(
-#             trescpl='tresc',
-#             tresceng='content',
-#             nauczycielakademickiid_id=1,
-#             typ_id=1,
-#             jezykrealizacji_id=1,
-#             czyzatwierdzony=True,
-#             czywolny=True
-#         )
-#
-#         _input = [t]
-#         expected = [TematDTO(t.id, t.trescpl, t.nauczycielakademickiid, 'wolny')]
-#
-#         result = controler.create_DTO_list(_input)
-#
-#         self.assertEqual(result, expected)
+from unittest.mock import MagicMock
+
+import pytest
+
+from dyplomowanie.DTO.tematy import TematDTO
+from dyplomowanie.kontroler.tematy import Topics
+
+
+class TestTopics:
+    @pytest.mark.parametrize("test_input,expected", [
+        ([], []),  # działa dla pustej listy
+        ([MagicMock(id=1,
+                    trescpl='a',
+                    nauczycielakademickiid='Jan Nowak',
+                    czywolny=True)],
+         [TematDTO(1, 'a', 'Jan Nowak', 'wolny')]),
+        ([MagicMock(id=1,
+                    trescpl='a',
+                    nauczycielakademickiid='Jan Nowak',
+                    czywolny=True),
+          MagicMock(id=2,
+                    trescpl='druga tresc',
+                    nauczycielakademickiid='Jan Kowal',
+                    czywolny=False)
+          ],
+         [TematDTO(1, 'a', 'Jan Nowak', 'wolny'),
+          TematDTO(2, 'druga tresc', 'Jan Kowal', 'zajęty')]),
+    ])
+    def test_create_DTO_list(self, test_input, expected):
+        t = Topics()
+        assert t.create_DTO_list(test_input) == expected
